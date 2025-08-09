@@ -24,7 +24,7 @@ A secure C2 framework with Python server and lightweight C agent.
 ## Quick Start
 
 ### Server Setup
-```bash
+
 # Install dependencies
 pip install pycryptodome cjson
 
