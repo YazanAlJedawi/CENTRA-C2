@@ -27,14 +27,18 @@ Interactive Shell: The server provides a "turtle" shell for interacting with con
 Cross-Platform Agent (Linux/Unix-like): The C agent is designed for Linux/Unix-like systems.
 
 ## 🚀 Getting Started
-Prerequisites
-For the Server (Python):
+
+Prerequisites:
+
+### For the Server (Python):
 
 Python 3.x
 
 pycryptodome library:
 
+```
 pip install pycryptodome
+```
 
 For the Agent (C):
 
@@ -46,13 +50,15 @@ Debian/Ubuntu: sudo apt-get install libssl-dev
 
 Red Hat/CentOS/Fedora: sudo yum install openssl-devel
 
-Installation and Setup
+### Installation and Setup
+
 Clone the Repository:
 
-git clone https://github.com/YazanAlJedawi/CentraC2.git
-cd CentraC2
-
-Configure Shared Secrets:
+```
+git clone https://github.com/YazanAlJedawi/CENTRA-C2.git
+cd CENTRA-C2
+```
+### Configure Shared Secrets:
 
 Open Centra_Server.py and Centra_Agent.c.
 
@@ -62,78 +68,79 @@ Locate the COMMAND_COMMUNICATION_SECRET in both files. These 32-byte secrets mus
 
 Compile the C Agent:
 
+```
 gcc Centra_Agent.c -o Centra_Agent -lssl -lcrypto -lcjson
+```
+### Usage
 
-Usage
 Start the Server:
-
+```
 python3 Centra_Server.py
-
+```
 The server will display a logo and an introductory message. It will then enter the turtle shell.
 
 Make the Server Listen:
 In the turtle shell, type:
-
-listen
-
+```
+trutle>listen
+```
 The server will start listening for incoming connections on 0.0.0.0:9999.
 
 Run the C Agent (on the target machine):
 
+```
 ./Centra_Agent
-
+```
 The agent will attempt to connect to the configured SERVER_HOST (default: 127.0.0.1) and SERVER_PORT (default: 9999).
 
 Interact with Clients from the Server:
 
 List Connected Clients:
 
+```
 list
-
+```
 This will show active connections with their respective IDs.
 
 Select a Client:
-
+```
 select <client_ID>
-
+```
 Replace <client_ID> with the ID obtained from the list command. Your prompt will change to client_address > indicating you are now interacting with that specific client.
 
 Execute Commands:
 Once a client is selected, any command you type will be sent to and executed by the agent on that client machine. The output will be displayed in your server terminal.
 
-Other Server Commands:
-
-help: Displays available server commands.
-
-logo: Prints the CentraC2 logo.
-
-exit: Shuts down the server.
+you can always ask for help with the "help" command.
 
 ## ⚙️ Configuration
+
+To get CentraC2 up and running smoothly, you'll need to adjust a few key parameters. These values define how your client and server find each other and secure their communication. Make sure these settings are perfectly aligned in both the client and server files for a successful connection!
+
+### Network Endpoint 🌐
 Server Host and Port:
 
-Centra_Agent.c: SERVER_HOST and SERVER_PORT
+In Centra_Agent.c, modify SERVER_HOST (e.g., "127.0.0.1" for local testing) and SERVER_PORT (e.g., 9999).
 
-Centra_Server.py: The s.bind(("0.0.0.0", 9999)) line defines the listening address and port.
+In Centra_Server.py, the line s.bind(("0.0.0.0", 9999)) explicitly sets the server's listening address and port. Adjust 0.0.0.0 to a specific IP if needed, and change 9999 to your desired port.
 
-Authentication Key:
+### Initial Authentication Key 🔑
+The Shared Secret: This key ensures only legitimate clients can initiate a connection.
 
-Centra_Agent.c: INIT_KEY
+In Centra_Agent.c, update INIT_KEY (a string like "TRUSTME").
 
-Centra_Server.py: key
+In Centra_Server.py, modify the key variable (also a string).
 
-These strings are hashed using SHA256 for initial connection authentication.
+How it Works: These strings are securely hashed using SHA256 for the initial connection authentication, preventing unauthorized access attempts.
 
-Communication Secret (AES-GCM):
+### Command Communication Secret (AES-GCM) 🔒
+The Encryption Powerhouse: This is the heart of your secure command and control.
 
-Centra_Agent.c: COMMAND_COMMUNICATION_SECRET
+In Centra_Agent.c, the COMMAND_COMMUNICATION_SECRET is a 32-byte array (e.g., 0x9a, 0x7f, ...).
 
-Centra_Server.py: COMMAND_COMMUNICATION_SECRET
+In Centra_Server.py, COMMAND_COMMUNICATION_SECRET is also defined as a 32-byte byte string.
 
-This 32-byte array is used as the AES-256 key for command and response encryption.
-
-It is crucial that the INIT_KEY/key and COMMAND_COMMUNICATION_SECRET values are identical in both Centra_Agent.c and Centra_Server.py for successful communication.
-
+Critical Match: This 32-byte array serves as the AES-256 key for encrypting and decrypting all commands sent from the server to the client, and all responses sent back. It is absolutely crucial that these 32 bytes are identical in both files!
 
 
 ## 🤝 Contributing
