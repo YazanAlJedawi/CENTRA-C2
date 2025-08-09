@@ -1,7 +1,21 @@
 # CentraC2 - Command & Control Framework
+
+```
+
+
+ ██████╗███████╗███╗  ██╗████████╗██████╗  █████╗  ██████╗    ██████╗
+██╔════╝██╔════╝████╗ ██║╚══██╔══╝██╔══██╗██╔══██╗██╔════╝    ╚════██╗
+██║     █████╗  ██╔██╗██║   ██║   ██████╔╝███████║██║          █████╔╝
+██║     ██╔══╝  ██║╚████║   ██║   ██╔══██╗██╔══██║██║         ██╔═══╝ 
+╚██████╗███████╗██║ ╚███║   ██║   ██║  ██║██║  ██║╚██████╗    ███████╗
+ ╚═════╝╚══════╝╚═╝  ╚══╝   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝    ╚══════╝
+
+
+```
+
 CentraC2 is a basic Command and Control (C2) framework consisting of a Python server and a C agent. It provides a straightforward way to establish reverse shell connections and execute commands on client machines.
 
-✨ Features
+## ✨ Features
 Encrypted Communication: All command and output communication between the server and agent is encrypted using AES-256-GCM.
 
 SHA256 Key Exchange: A simple SHA256 hash-based key exchange ensures initial connection authenticity.
@@ -12,7 +26,7 @@ Interactive Shell: The server provides a "turtle" shell for interacting with con
 
 Cross-Platform Agent (Linux/Unix-like): The C agent is designed for Linux/Unix-like systems.
 
-🚀 Getting Started
+## 🚀 Getting Started
 Prerequisites
 For the Server (Python):
 
@@ -95,7 +109,7 @@ logo: Prints the CentraC2 logo.
 
 exit: Shuts down the server.
 
-⚙️ Configuration
+## ⚙️ Configuration
 Server Host and Port:
 
 Centra_Agent.c: SERVER_HOST and SERVER_PORT
@@ -122,7 +136,7 @@ It is crucial that the INIT_KEY/key and COMMAND_COMMUNICATION_SECRET values are 
 
 
 
-🤝 Contributing
+## 🤝 Contributing
 Contributions are welcome! Please feel free to open issues or submit pull requests.
 
 
